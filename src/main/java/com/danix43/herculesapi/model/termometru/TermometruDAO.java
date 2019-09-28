@@ -1,10 +1,14 @@
 package com.danix43.herculesapi.model.termometru;
 
+import java.sql.Timestamp;
+
 public class TermometruDAO {
 	
 	private String name;
 	
-	private String firstinsert;
+	private Timestamp firstinsert;
+	
+	private Timestamp lastinsert;
 	
 	private double tempCelsius;
 	
@@ -21,13 +25,21 @@ public class TermometruDAO {
 	public void setName(String name) {
 		this.name = name;
 	}
- 
-	public String getFirstinsert() {
+	
+	public Timestamp getFirstinsert() {
 		return firstinsert;
 	}
 
-	public void setFirstinsert(String firstinsert) {
+	public void setFirstinsert(Timestamp firstinsert) {
 		this.firstinsert = firstinsert;
+	}
+
+	public Timestamp getLastinsert() {
+		return lastinsert;
+	}
+
+	public void setLastinsert(Timestamp lastinsert) {
+		this.lastinsert = lastinsert;
 	}
 
 	public double getTempCelsius() {

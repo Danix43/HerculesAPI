@@ -1,5 +1,8 @@
 package com.danix43.herculesapi.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,18 +53,19 @@ public class IoTController {
 	}
 	
 	@PostMapping(path = "/termometru/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Termometru> updateById(@RequestBody TermometruDAO requestPayload, 
+	public ResponseEntity<TermometruDAO> updateById(@RequestBody TermometruDAO requestPayload, 
 													@PathVariable(name = "id") int id) {
 		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
 		if (databaseEntity.isPresent()) {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
 			saveEntity.setId(id);
+			saveEntity.setLastinsert(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Z"))));
 			termometruRepo.save(saveEntity);
-			return ResponseEntity.ok(saveEntity);
+			return ResponseEntity.ok(requestPayload);
 		} else {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
 			termometruRepo.save(saveEntity);
-			return new ResponseEntity<Termometru>(HttpStatus.CREATED);
+			return new ResponseEntity<TermometruDAO>(HttpStatus.CREATED);
 		}
 	}
 	

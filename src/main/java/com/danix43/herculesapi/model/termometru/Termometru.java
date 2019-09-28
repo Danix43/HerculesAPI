@@ -1,7 +1,6 @@
 package com.danix43.herculesapi.model.termometru;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+
 @Entity
+@DynamicInsert
 @Table(name = "iottermometru", schema = "central")
 public class Termometru {
 
@@ -23,7 +25,7 @@ public class Termometru {
 	
 	private Timestamp firstinsert;
 	
-	private Timestamp lastinsert = Timestamp.valueOf(LocalDateTime.now());
+	private Timestamp lastinsert;
 	
 	private double tempCelsius;
 	
