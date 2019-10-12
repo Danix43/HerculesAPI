@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.danix43.herculesapi.model.termometru.Termometru;
-import com.danix43.herculesapi.model.termometru.TermometruDAO;
+import com.danix43.herculesapi.model.termometru.TermometruPOJO;
 import com.danix43.herculesapi.repository.TermometruRepository;
 
 @RestController
@@ -40,21 +40,21 @@ public class IoTController {
 	}
 	
 	@GetMapping("/termometru")
-	public ResponseEntity<TermometruDAO> getByName(@RequestParam(name = "name") String name) {
+	public ResponseEntity<TermometruPOJO> getByName(@RequestParam(name = "name") String name) {
 		Termometru databaseEntity = termometruRepo.findByName(name);
-		TermometruDAO dtoEntity = modelMapper.map(databaseEntity, TermometruDAO.class);
+		TermometruPOJO dtoEntity = modelMapper.map(databaseEntity, TermometruPOJO.class);
 		return ResponseEntity.ok(dtoEntity);
 	}
 	
 	@GetMapping("/termometru/{id}/status")
-	public ResponseEntity<TermometruDAO> getById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<TermometruPOJO> getById(@PathVariable(name = "id") int id) {
 		Termometru databaseEntity = termometruRepo.getOne(id);
-		TermometruDAO daoEntity = modelMapper.map(databaseEntity, TermometruDAO.class);
+		TermometruPOJO daoEntity = modelMapper.map(databaseEntity, TermometruPOJO.class);
 		return ResponseEntity.ok(daoEntity);
 	}
 	
 	@PostMapping(path = "/termometru/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TermometruDAO> updateById(@RequestBody TermometruDAO requestPayload, 
+	public ResponseEntity<TermometruPOJO> updateById(@RequestBody TermometruPOJO requestPayload, 
 													@PathVariable(name = "id") int id) {
 		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
 		if (databaseEntity.isPresent()) {
@@ -66,7 +66,7 @@ public class IoTController {
 		} else {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
 			termometruRepo.save(saveEntity);
-			return new ResponseEntity<TermometruDAO>(HttpStatus.CREATED);
+			return new ResponseEntity<TermometruPOJO>(HttpStatus.CREATED);
 		}
 	}
 	
@@ -82,43 +82,3 @@ public class IoTController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
