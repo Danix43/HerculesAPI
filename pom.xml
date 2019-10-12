@@ -4,8 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.danix43.herculesAPI</groupId>
 	<artifactId>HerculesAPI</artifactId>
-	<version>0.0.1-DEVELOPMENT</version>
+	<version>0.1.1</version>
 	<name>HerculesAPI</name>
+	<packaging>war</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -41,15 +42,10 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>provided</scope>
-		</dependency>
-	
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
