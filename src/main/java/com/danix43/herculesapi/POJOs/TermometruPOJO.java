@@ -1,4 +1,4 @@
-package com.danix43.herculesapi.model.termometru;
+package com.danix43.herculesapi.POJOs;
 
 import java.sql.Timestamp;
 

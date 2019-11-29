@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.danix43.herculesapi.model.termometru.Termometru;
-import com.danix43.herculesapi.model.termometru.TermometruPOJO;
+import com.danix43.herculesapi.POJOs.TermometruPOJO;
+import com.danix43.herculesapi.model.Termometru;
 import com.danix43.herculesapi.repository.TermometruRepository;
 
 @RestController
