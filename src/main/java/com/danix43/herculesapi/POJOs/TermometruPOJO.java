@@ -1,6 +1,7 @@
 package com.danix43.herculesapi.POJOs;
 
 import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -14,18 +15,18 @@ public class TermometruPOJO {
 	
 	private Timestamp lastInsert;
 	
-	private double tempCelsius;
+	private double temperatureInCelsius;
 	
 	private double heatIndexCelsius;
 	
-	private double tempKelvin;
+	private double temperatureInKelvin;
 	
 	private double heatIndexKelvin;
 	
-	private double tempFahrenheit;
+	private double temperatureInFahrenheit;
 	
 	private double heatIndexFahrenheit;
 	
 	private double humidity;
-
+	
 }

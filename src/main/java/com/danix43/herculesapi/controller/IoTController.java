@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.danix43.herculesapi.POJOs.TermometruPOJO;
+import com.danix43.herculesapi.exceptionhandling.exceptions.EntityNotFoundException;
 import com.danix43.herculesapi.model.Termometru;
 import com.danix43.herculesapi.repository.TermometruRepository;
 
@@ -48,9 +49,13 @@ public class IoTController {
 	
 	@GetMapping("/termometru/{id}/status")
 	public ResponseEntity<TermometruPOJO> getById(@PathVariable(name = "id") int id) {
-		Termometru databaseEntity = termometruRepo.getOne(id);
-		TermometruPOJO daoEntity = modelMapper.map(databaseEntity, TermometruPOJO.class);
-		return ResponseEntity.ok(daoEntity);
+		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
+		if (databaseEntity.isPresent()) {
+			TermometruPOJO daoEntity = modelMapper.map(databaseEntity.get(), TermometruPOJO.class);
+			return ResponseEntity.ok(daoEntity);	
+		} else {
+			throw new EntityNotFoundException("Entity with this id not found. ID: " + id);
+		}
 	}
 	
 	@PostMapping(path = "/termometru/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE)
