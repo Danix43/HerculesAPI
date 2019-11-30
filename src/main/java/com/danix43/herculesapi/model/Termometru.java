@@ -36,25 +36,25 @@ public class Termometru {
 	@Column(name = "lastinsert")
 	private Timestamp lastInsert;
 	
-	@Column(name = "temperatureCelsius")
-	private double tempCelsius;
+	@Column(name = "temperatureincelsius", precision = 2)
+	private double temperatureInCelsius;
 	
-	@Column(name = "heatIndexCelsius")
+	@Column(name = "heatindexcelsius", precision = 2)
 	private double heatIndexCelsius;
 	
-	@Column(name = "temperatureKelvin")
-	private double tempKelvin;
+	@Column(name = "temperatureinkelvin", precision = 2)
+	private double temperatureInKelvin;
 	
-	@Column(name = "heatIndexKelvin")
+	@Column(name = "heatindexkelvin", precision = 2)
 	private double heatIndexKelvin;
 	
-	@Column(name = "temperatureFahrenheit")
-	private double tempFahrenheit;
+	@Column(name = "temperatureinfahrenheit", precision = 2)
+	private double temperatureInFahrenheit;
 	
-	@Column(name = "heatIndexFahrenheit")
+	@Column(name = "heatindexfahrenheit", precision = 2)
 	private double heatIndexFahrenheit;
 	
-	@Column(name = "humidity")
+	@Column(name = "humidity", precision = 2)
 	private double humidity;
 
 }
