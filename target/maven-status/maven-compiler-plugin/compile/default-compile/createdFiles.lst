@@ -1,7 +1,8 @@
 com\danix43\herculesapi\repository\TermometruRepository.class
+com\danix43\herculesapi\POJOs\TermometruPOJO.class
 com\danix43\herculesapi\AppConfig$1.class
 com\danix43\herculesapi\Starter.class
-com\danix43\herculesapi\model\termometru\Termometru.class
 com\danix43\herculesapi\AppConfig.class
 com\danix43\herculesapi\controller\IoTController.class
-com\danix43\herculesapi\model\termometru\TermometruDAO.class
+com\danix43\herculesapi\model\Termometru.class
+com\danix43\herculesapi\exceptionhandling\ExceptionHandler.class

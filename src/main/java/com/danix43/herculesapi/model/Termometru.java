@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @DynamicInsert
-@Table(name = "iottermometru", schema = "central")
+@Table(name = "meteoseekers", schema = "herculespai")
 public class Termometru {
 
 	@Id
@@ -24,24 +24,37 @@ public class Termometru {
 	@Column(name = "id")
 	private int id;
 	
+	@Column(name = "name")
 	private String name;
 	
-	private Timestamp firstinsert;
-	
-	private Timestamp lastinsert;
-	
+	@Column(name = "location")
 	private String location;
+
+	@Column(name = "firstinsert")
+	private Timestamp firstInsert;
 	
+	@Column(name = "lastinsert")
+	private Timestamp lastInsert;
+	
+	@Column(name = "temperatureCelsius")
 	private double tempCelsius;
 	
+	@Column(name = "heatIndexCelsius")
 	private double heatIndexCelsius;
 	
+	@Column(name = "temperatureKelvin")
 	private double tempKelvin;
 	
+	@Column(name = "heatIndexKelvin")
+	private double heatIndexKelvin;
+	
+	@Column(name = "temperatureFahrenheit")
 	private double tempFahrenheit;
 	
+	@Column(name = "heatIndexFahrenheit")
 	private double heatIndexFahrenheit;
 	
+	@Column(name = "humidity")
 	private double humidity;
 
 }

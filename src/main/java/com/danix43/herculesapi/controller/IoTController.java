@@ -60,13 +60,13 @@ public class IoTController {
 		if (databaseEntity.isPresent()) {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
 			saveEntity.setId(id);
-			saveEntity.setLastinsert(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Z"))));
+			saveEntity.setLastInsert(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Z"))));
 			termometruRepo.save(saveEntity);
 			return ResponseEntity.ok(requestPayload);
 		} else {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
 			termometruRepo.save(saveEntity);
-			return new ResponseEntity<TermometruPOJO>(HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
 	}
 	
@@ -75,9 +75,9 @@ public class IoTController {
 		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
 		if (databaseEntity.isPresent()) {
 			termometruRepo.delete(databaseEntity.get());
-			return new ResponseEntity<Termometru>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Termometru>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
