@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +28,9 @@ import com.danix43.herculesapi.repository.TermometruRepository;
 @RestController
 @RequestMapping("/api")
 public class IoTController {
-
+	
+	private static final Logger log = Logger.getLogger(IoTController.class.getName());
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -58,9 +60,10 @@ public class IoTController {
 		}
 	}
 	
-	@PostMapping(path = "/termometru/{id}/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/termometru/{id}/update")
 	public ResponseEntity<TermometruPOJO> updateById(@RequestBody TermometruPOJO requestPayload, 
 													@PathVariable(name = "id") int id) {
+		System.out.println(requestPayload);
 		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
 		if (databaseEntity.isPresent()) {
 			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);

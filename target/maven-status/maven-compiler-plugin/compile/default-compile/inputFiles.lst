@@ -1,7 +1,10 @@
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\exceptionhandling\ExceptionHandler.java
+D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\exceptionhandling\exceptions\EntityNotFoundException.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\controller\IoTController.java
+D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\exceptionhandling\ApiError.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\repository\TermometruRepository.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\Starter.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\AppConfig.java
+D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\exceptionhandling\ApiExceptionHandler.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\POJOs\TermometruPOJO.java
 D:\Programe\Programare\Java\HerculesAPI\src\main\java\com\danix43\herculesapi\model\Termometru.java
