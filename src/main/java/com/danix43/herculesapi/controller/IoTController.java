@@ -1,13 +1,8 @@
 package com.danix43.herculesapi.controller;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.danix43.herculesapi.POJOs.TermometruPOJO;
-import com.danix43.herculesapi.exceptionhandling.exceptions.EntityNotFoundException;
 import com.danix43.herculesapi.model.Termometru;
-import com.danix43.herculesapi.repository.TermometruRepository;
+import com.danix43.herculesapi.model.TermometruPOJO;
+import com.danix43.herculesapi.service.TermometruService;
 
 @RestController
 @RequestMapping("/api")
@@ -32,61 +26,34 @@ public class IoTController {
 	private static final Logger log = Logger.getLogger(IoTController.class.getName());
 	
 	@Autowired
-	private ModelMapper modelMapper;
-	
-	@Autowired
-	private TermometruRepository termometruRepo;
+	private TermometruService termometruService;
 
 	@GetMapping("/termometre/all")
-	public  ResponseEntity<List<Termometru>> getAll() {
-		return ResponseEntity.ok(termometruRepo.findAll());
+	public  ResponseEntity<List<TermometruPOJO>> getAll() {
+		return new ResponseEntity<>(termometruService.getAllTermometre(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/termometru")
 	public ResponseEntity<TermometruPOJO> getByName(@RequestParam(name = "name") String name) {
-		Termometru databaseEntity = termometruRepo.findByName(name);
-		TermometruPOJO dtoEntity = modelMapper.map(databaseEntity, TermometruPOJO.class);
-		return ResponseEntity.ok(dtoEntity);
+		return new ResponseEntity<>(termometruService.getTermometruByName(name), HttpStatus.OK);
 	}
 	
 	@GetMapping("/termometru/{id}/status")
 	public ResponseEntity<TermometruPOJO> getById(@PathVariable(name = "id") int id) {
-		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
-		if (databaseEntity.isPresent()) {
-			TermometruPOJO daoEntity = modelMapper.map(databaseEntity.get(), TermometruPOJO.class);
-			return ResponseEntity.ok(daoEntity);	
-		} else {
-			throw new EntityNotFoundException("Entity with this id not found. ID: " + id);
-		}
+		return new ResponseEntity<>(termometruService.getTermometruById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/termometru/{id}/update")
 	public ResponseEntity<TermometruPOJO> updateById(@RequestBody TermometruPOJO requestPayload, 
 													@PathVariable(name = "id") int id) {
-		System.out.println(requestPayload);
-		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
-		if (databaseEntity.isPresent()) {
-			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
-			saveEntity.setId(id);
-			saveEntity.setLastInsert(Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Z"))));
-			termometruRepo.save(saveEntity);
-			return ResponseEntity.ok(requestPayload);
-		} else {
-			Termometru saveEntity = modelMapper.map(requestPayload, Termometru.class);
-			termometruRepo.save(saveEntity);
-			return new ResponseEntity<>(HttpStatus.CREATED);
-		}
+		termometruService.updateEntity(id, requestPayload);
+		return new ResponseEntity<>(requestPayload, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(path = "/termometru/{id}/delete")
 	public ResponseEntity<Termometru> deleteById(@PathVariable(name = "id") int id) {
-		Optional<Termometru> databaseEntity = termometruRepo.findById(id);
-		if (databaseEntity.isPresent()) {
-			termometruRepo.delete(databaseEntity.get());
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		termometruService.deleteEntity(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }

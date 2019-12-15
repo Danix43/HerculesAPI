@@ -1,4 +1,4 @@
-package com.danix43.herculesapi.exceptionhandling.exceptions;
+package com.danix43.herculesapi.exceptionhandling;
 
 public class EntityNotFoundException extends RuntimeException {
 	

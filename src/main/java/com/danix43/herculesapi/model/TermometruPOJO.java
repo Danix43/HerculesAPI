@@ -1,4 +1,4 @@
-package com.danix43.herculesapi.POJOs;
+package com.danix43.herculesapi.model;
 
 import java.sql.Timestamp;
 
