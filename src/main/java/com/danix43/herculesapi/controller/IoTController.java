@@ -1,7 +1,6 @@
 package com.danix43.herculesapi.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,38 +21,39 @@ import com.danix43.herculesapi.service.TermometruService;
 @RestController
 @RequestMapping("/api")
 public class IoTController {
-	
-	private static final Logger log = Logger.getLogger(IoTController.class.getName());
-	
+
 	@Autowired
 	private TermometruService termometruService;
 
 	@GetMapping("/termometre/all")
-	public  ResponseEntity<List<TermometruPOJO>> getAll() {
+	public ResponseEntity<List<TermometruPOJO>> getAll() {
 		return new ResponseEntity<>(termometruService.getAllTermometre(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/termometru")
 	public ResponseEntity<TermometruPOJO> getByName(@RequestParam(name = "name") String name) {
 		return new ResponseEntity<>(termometruService.getTermometruByName(name), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/termometru/{id}/status")
 	public ResponseEntity<TermometruPOJO> getById(@PathVariable(name = "id") int id) {
 		return new ResponseEntity<>(termometruService.getTermometruById(id), HttpStatus.OK);
 	}
-	
-	@PostMapping(path = "/termometru/{id}/update")
-	public ResponseEntity<TermometruPOJO> updateById(@RequestBody TermometruPOJO requestPayload, 
-													@PathVariable(name = "id") int id) {
+
+
+
+	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json;charset=UTF-8")
+	public ResponseEntity<Termometru> updateById(@RequestBody TermometruPOJO requestPayload,
+			@PathVariable(name = "id") int id) {
 		termometruService.updateEntity(id, requestPayload);
-		return new ResponseEntity<>(requestPayload, HttpStatus.CREATED);
+//		termometruService.saveToDatabase(requestPayload);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping(path = "/termometru/{id}/delete")
 	public ResponseEntity<Termometru> deleteById(@PathVariable(name = "id") int id) {
 		termometruService.deleteEntity(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }

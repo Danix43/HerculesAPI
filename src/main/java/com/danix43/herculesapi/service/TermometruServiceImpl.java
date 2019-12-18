@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,6 +20,8 @@ public class TermometruServiceImpl implements TermometruService {
 	private TermometruRepository termometreRepo;
 	
 	private ModelMapper modelMapper;
+
+	private static final String ERROR_NOTFOUND = "Entity with this id can't be found";
 	
 	@Override
 	public List<TermometruPOJO> getAllTermometre() {
@@ -31,20 +31,19 @@ public class TermometruServiceImpl implements TermometruService {
 	}
 	
 	@Override
-	public void saveToDatabase(TermometruPOJO entity) {
-		termometreRepo.save(modelMapper.map(entity, Termometru.class));
+	public void saveToDatabase(Termometru entity) {
+		termometreRepo.save(entity);
 	}
 
 	@Override
 	public void updateEntity(int id, TermometruPOJO entity) {
-		Optional<Termometru> databaseEntity = termometreRepo.findById(id);
-		if (!databaseEntity.isPresent()) {
-			throw new EntityNotFoundException("Entity with this id " + id + " can not be found");
+		Optional<Termometru> termometruDatabase = termometreRepo.findById(id);
+		if (termometruDatabase.isPresent()) {
+			Termometru termometruToSave = modelMapper.map(entity, termometruDatabase.get().getClass());
+			termometruToSave.setTermometruId(id);
+			termometreRepo.save(termometruToSave);
 		} else {
-			Termometru entityToSave = modelMapper.map(entity, Termometru.class);
-			entityToSave.setId(id);
-			entityToSave.setLastInsert(Timestamp.valueOf(LocalDateTime.now()));
-			termometreRepo.save(entityToSave);
+			throw new EntityNotFoundException(ERROR_NOTFOUND);
 		}
 	}
 
@@ -52,7 +51,7 @@ public class TermometruServiceImpl implements TermometruService {
 	public void deleteEntity(int id) {
 		Optional<Termometru> databaseEntity = termometreRepo.findById(id);
 		if (!databaseEntity.isPresent()) {
-			throw new EntityNotFoundException("Entity with this id " + id + " can not be found");
+			throw new EntityNotFoundException(ERROR_NOTFOUND);
 		} else {
 			termometreRepo.deleteById(id);
 		}
@@ -74,10 +73,10 @@ public class TermometruServiceImpl implements TermometruService {
 	public TermometruPOJO getTermometruById(int id) { 
 		Optional<Termometru> databaseEntity = termometreRepo.findById(id);
 		if (!databaseEntity.isPresent()) {
-			throw new EntityNotFoundException("Entity with this id " + id + " can not be found");
+			throw new EntityNotFoundException(ERROR_NOTFOUND);
 		} else {
 			return modelMapper.map(databaseEntity, TermometruPOJO.class);
 		}
 	}
-
+	
 }

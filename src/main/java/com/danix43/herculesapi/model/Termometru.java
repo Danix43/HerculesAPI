@@ -1,6 +1,7 @@
 package com.danix43.herculesapi.model;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Termometru {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private int termometruId;
 	
 	@Column(name = "name")
 	private String name;
@@ -34,7 +35,7 @@ public class Termometru {
 	private Timestamp firstInsert;
 	
 	@Column(name = "lastinsert")
-	private Timestamp lastInsert;
+	private Timestamp lastInsert = Timestamp.from(Instant.now());
 	
 	@Column(name = "temperatureincelsius", precision = 2)
 	private double temperatureInCelsius;
