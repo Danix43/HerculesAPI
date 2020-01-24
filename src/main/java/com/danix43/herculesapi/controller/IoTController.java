@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.danix43.herculesapi.model.Termometru;
 import com.danix43.herculesapi.model.TermometruPOJO;
+import com.danix43.herculesapi.model.TermometruTrimmed;
 import com.danix43.herculesapi.service.TermometruService;
 
 @RestController
@@ -40,13 +41,17 @@ public class IoTController {
 		return new ResponseEntity<>(termometruService.getTermometruById(id), HttpStatus.OK);
 	}
 
-
-
-	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json;charset=UTF-8")
+	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
 	public ResponseEntity<Termometru> updateById(@RequestBody TermometruPOJO requestPayload,
 			@PathVariable(name = "id") int id) {
 		termometruService.updateEntity(id, requestPayload);
-//		termometruService.saveToDatabase(requestPayload);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
+	public ResponseEntity<Termometru> updateById(@RequestBody TermometruTrimmed requestPayload,
+			@PathVariable(name = "id") int id) {
+		termometruService.updateEntity(id, requestPayload);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
