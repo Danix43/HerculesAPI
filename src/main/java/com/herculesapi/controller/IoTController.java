@@ -41,19 +41,23 @@ public class IoTController {
 		return new ResponseEntity<>(termometruService.getTermometruById(id), HttpStatus.OK);
 	}
 
+	/**	
+		Should add use the same method for different objects
+		Change in TermometreServiceImpl 
+	 */
 	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
-	public ResponseEntity<Termometru> updateById(@RequestBody TermometruPOJO requestPayload,
+	public ResponseEntity<Termometru> updateByIdUsingPojo(@RequestBody TermometruPOJO requestPayload,
 			@PathVariable(name = "id") int id) {
 		termometruService.updateEntity(id, requestPayload);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
-	public ResponseEntity<Termometru> updateById(@RequestBody TermometruTrimmed requestPayload,
-			@PathVariable(name = "id") int id) {
-		termometruService.updateEntity(id, requestPayload);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	// @PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
+	// public ResponseEntity<Termometru> updateByIdUsingTrimmed(@RequestBody TermometruTrimmed requestPayload,
+	// 		@PathVariable(name = "id") int id) {
+	// 	termometruService.updateEntity(id, requestPayload);
+	// 	return new ResponseEntity<>(HttpStatus.OK);
+	// }
 
 	@DeleteMapping(path = "/termometru/{id}/delete")
 	public ResponseEntity<Termometru> deleteById(@PathVariable(name = "id") int id) {
