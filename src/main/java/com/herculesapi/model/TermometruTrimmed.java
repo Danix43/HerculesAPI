@@ -1,9 +1,11 @@
 package com.herculesapi.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class TermometruTrimmed {
+@EqualsAndHashCode(callSuper = false)
+public class TermometruTrimmed extends Termometru {
 
 	private String name;
 

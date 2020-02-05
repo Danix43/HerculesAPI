@@ -35,11 +35,6 @@ public class TermometruServiceImpl implements TermometruService {
 	}
 
 	@Override
-	public void saveToDatabase(Termometru entity) {
-		termometreRepo.save(entity);
-	}
-
-	@Override
 	public void updateEntity(int id, TermometruPOJO entity) {
 		Optional<Termometru> termometruDatabase = termometreRepo.findById(id);
 		if (termometruDatabase.isPresent()) {

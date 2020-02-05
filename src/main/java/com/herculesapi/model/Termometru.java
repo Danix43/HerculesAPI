@@ -21,6 +21,7 @@ import lombok.Data;
 @Table(name = "meteoseekers", schema = "herculespai")
 @XmlRootElement(name = "termometru")
 public class Termometru {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.herculesapi.model.Termometru;
 import com.herculesapi.model.TermometruPOJO;
 import com.herculesapi.model.TermometruTrimmed;
 
@@ -12,8 +11,6 @@ import com.herculesapi.model.TermometruTrimmed;
 public interface TermometruService {
 
 	public List<TermometruPOJO> getAllTermometre();
-
-	public void saveToDatabase(Termometru entity);
 
 	public void updateEntity(int id, TermometruPOJO entity);
 
