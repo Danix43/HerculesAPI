@@ -38,7 +38,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 
 		<!-- Repos for data delivery formats -->

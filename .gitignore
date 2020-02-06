@@ -5,6 +5,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
+target/
 
 local.properties
 .settings/
