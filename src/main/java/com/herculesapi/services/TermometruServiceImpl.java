@@ -31,14 +31,23 @@ public class TermometruServiceImpl implements TermometruService {
 		List<Termometru> databaseList = termometreRepo.findAll();
 		Type type = new TypeToken<List<TermometruPOJO>>() {
 		}.getType();
-		return modelMapper.map(databaseList, type);
+		try {
+			return modelMapper.map(databaseList, type);
+		} catch (IllegalArgumentException e) {
+			throw new EntityNotFoundException();
+		}
 	}
 
 	@Override
 	public void updateEntity(int id, TermometruPOJO entity) {
 		Optional<Termometru> termometruDatabase = termometreRepo.findById(id);
 		if (termometruDatabase.isPresent()) {
-			Termometru termometruToSave = modelMapper.map(entity, termometruDatabase.get().getClass());
+			Termometru termometruToSave;
+			try {
+				termometruToSave = modelMapper.map(entity, termometruDatabase.get().getClass());
+			} catch (IllegalArgumentException e) {
+				throw new EntityNotFoundException();
+			}
 			termometruToSave.setTermometruId(id);
 			termometreRepo.save(termometruToSave);
 		} else {
@@ -70,7 +79,11 @@ public class TermometruServiceImpl implements TermometruService {
 
 	@Override
 	public TermometruPOJO getTermometruByName(String name) {
-		return modelMapper.map(termometreRepo.findByName(name), TermometruPOJO.class);
+		try {
+			return modelMapper.map(termometreRepo.findByName(name), TermometruPOJO.class);
+		} catch (IllegalArgumentException e) {
+			throw new EntityNotFoundException();
+		}
 	}
 
 	@Override
@@ -78,7 +91,11 @@ public class TermometruServiceImpl implements TermometruService {
 		List<Termometru> databaseList = termometreRepo.findAllByLocation(location);
 		Type type = new TypeToken<List<TermometruPOJO>>() {
 		}.getType();
-		return modelMapper.map(databaseList, type);
+		try {
+			return modelMapper.map(databaseList, type);
+		} catch (IllegalArgumentException e) {
+			throw new EntityNotFoundException();
+		}
 	}
 
 	@Override

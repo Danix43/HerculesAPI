@@ -1,14 +1,12 @@
 package com.herculesapi.exceptionhandling;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 public class ApiError {
@@ -16,8 +14,6 @@ public class ApiError {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private LocalDateTime timestamp;
 	private String message;
-	private String debugMessage;
-	private List<ApiSubError> subErrors;
 
 	private ApiError() {
 		timestamp = LocalDateTime.now();
@@ -32,32 +28,12 @@ public class ApiError {
 		this();
 		this.status = status;
 		this.message = "Unexpeted error";
-		this.debugMessage = ex.getLocalizedMessage();
 	}
 
 	public ApiError(HttpStatus status, String message, Throwable ex) {
 		this();
 		this.status = status;
 		this.message = message;
-		this.debugMessage = ex.getLocalizedMessage();
 	}
 
-}
-
-abstract class ApiSubError {
-
-}
-
-@Data
-@EqualsAndHashCode(callSuper = false)
-class ApiValidationError extends ApiSubError {
-	private String object;
-	private String field;
-	private Object rejectedValue;
-	private String message;
-
-	public ApiValidationError(String object, String message) {
-		this.object = object;
-		this.message = message;
-	}
 }

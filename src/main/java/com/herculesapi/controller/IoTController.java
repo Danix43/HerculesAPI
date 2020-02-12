@@ -18,8 +18,8 @@ import com.herculesapi.model.TermometruPOJO;
 import com.herculesapi.services.TermometruService;
 
 /**
- * TODO: - Add actuator and made an endpoint that checks if the api is online
- * -The mobile app should be able to make a request only if the api is online
+ * TODO: - GET mappings don't return the corect error should EntityNotFound
+ * instead of modelmapper exception
  */
 
 @RestController

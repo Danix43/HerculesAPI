@@ -3,17 +3,13 @@ package com.herculesapi.model;
 import java.sql.Timestamp;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class TermometruPOJO extends Termometru {
+public class TermometruPOJO {
 
 	private String name;
 
 	private String location;
-
-	private Timestamp firstInsert;
 
 	private Timestamp lastInsert;
 
