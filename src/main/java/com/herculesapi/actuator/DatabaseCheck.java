@@ -15,21 +15,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseCheck implements HealthIndicator {
 
-	private static final Logger log = LoggerFactory.getLogger(DatabaseCheck.class);
+    private static final Logger log = LoggerFactory.getLogger(DatabaseCheck.class);
 
-	@Autowired
-	private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-	@Override
-	public Health health() {
+    @Override
+    public Health health() {
 
-		// checking database avalability
-		try (Connection connection = dataSource.getConnection()) {
-		} catch (SQLException e) {
-			log.error(e.getMessage());
-			return Health.down().build();
-		}
-		return Health.up().build();
+	// checking database avalability
+	try (Connection connection = dataSource.getConnection()) {
+	} catch (SQLException e) {
+	    log.error(e.getMessage());
+	    return Health.down().build();
 	}
+	return Health.up().build();
+    }
 
 }

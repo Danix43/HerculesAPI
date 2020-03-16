@@ -1,4 +1,4 @@
-package com.herculesapi.model;
+package com.herculesapi.model.termometru;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
