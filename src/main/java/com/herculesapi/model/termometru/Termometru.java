@@ -19,8 +19,11 @@ import lombok.Data;
 @Data
 @Entity
 @DynamicInsert
-@Table(name = "meteoseekers", schema = "herculespai")
+@Table(name = "meteoseekers")
 @XmlRootElement(name = "termometru")
+
+// TODO: - Could create a new object for encapsulating all the meteo related data
+
 public class Termometru {
 
     @Id

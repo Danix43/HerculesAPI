@@ -18,7 +18,8 @@ import com.herculesapi.model.termometru.TermometruPOJO;
 import com.herculesapi.services.termometru.TermometruService;
 
 /**
- * TODO: - Implement last call
+ * TODO: - Implement Last-Call - Implement security for Last-Call - Make the
+ * unit tests for IoTController class (in progress)
  */
 
 @RestController
@@ -43,16 +44,16 @@ public class IoTController {
     }
 
     @PostMapping(path = "/termometru/{id}/update", consumes = "application/json")
-    public ResponseEntity<Termometru> update(@RequestBody TermometruPOJO requestPayload,
+    public ResponseEntity<TermometruPOJO> update(@RequestBody TermometruPOJO requestPayload,
 	    @PathVariable(name = "id") int id) {
 	termometruService.updateEntity(id, requestPayload);
-	return new ResponseEntity<>(HttpStatus.OK);
+	return new ResponseEntity<>(requestPayload, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/termometru/{id}/delete")
     public ResponseEntity<Termometru> deleteById(@PathVariable(name = "id") int id) {
 	termometruService.deleteEntity(id);
-	return new ResponseEntity<>(HttpStatus.OK);
+	return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }
